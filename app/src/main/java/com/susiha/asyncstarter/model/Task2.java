@@ -1,25 +1,21 @@
-package com.susiha.asyncstarter;
+package com.susiha.asyncstarter.model;
 
+import com.susiha.annotation.TaskAnnotation;
 import com.susiha.library.Task;
 import com.susiha.library.TaskThreadPools;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
+@TaskAnnotation("Task2")
+public class Task2 extends Task {
 
-public class Task6 extends Task {
-
-    public Task6(String name) {
+    public Task2(String name) {
         super(name);
     }
 
     @Override
     public List<Class<? extends Task>> denpendsList() {
-
-        List<Class<? extends Task>> list = new ArrayList<>();
-        list.add(Task5.class);
-        list.add(Task4.class);
-        return list;
+        return null;
     }
 
     @Override
@@ -41,6 +37,6 @@ public class Task6 extends Task {
 
     @Override
     public boolean runOnMainThread() {
-        return true;
+        return false;
     }
 }

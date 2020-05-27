@@ -9,9 +9,7 @@ import java.util.concurrent.Executor;
  */
 public abstract  class Task {
     private String name;
-
-
-
+    private Boolean isFinish = false; // 是否执行完成
     private List<Task> succeedTasks;
     private CountDownLatch denpendsCount = new CountDownLatch(denpendsList() ==null?0:denpendsList().size());
     public Task(String name){
@@ -47,6 +45,14 @@ public abstract  class Task {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public Boolean getFinish() {
+        return isFinish;
+    }
+
+    public void setFinish(Boolean finish) {
+        isFinish = finish;
     }
 
 

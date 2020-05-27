@@ -3,8 +3,10 @@ package com.susiha.library;
 
 public class TaskRunnable implements Runnable {
     private Task task;
-    public TaskRunnable(Task task){
+    private AsyncStarter starter;
+    public TaskRunnable(Task task,AsyncStarter starter){
         this.task = task;
+        this.starter = starter;
     }
     @Override
     public void run() {
@@ -14,7 +16,12 @@ public class TaskRunnable implements Runnable {
         task.run();
         TaskLogger.logCostTime(task.getName(),System.currentTimeMillis()-startTime);
         //执行完通知执行后继
-        notifySucceed(task);
+        if(task.getSucceedTasks()!=null){
+            notifySucceed(task);
+        }else{
+            //通知Task已经完成
+            starter.finishCallBack(task);
+        }
     }
 
     private void notifySucceed(Task task){
@@ -24,6 +31,7 @@ public class TaskRunnable implements Runnable {
                 succeedTask.notifyTask();
             }
         }
+
     }
 
 
